@@ -69,8 +69,12 @@ func (c *Column) CreateSql() string {
 func (c *Column) PostgresType() string {
 	out := ""
 	switch c.col.DATA_TYPE {
+  case 3: // money
+    return "DECIMAL"
 	case 4: //int
 		return "INT"
+  case 5: // smallint
+    return "SMALLINT"
 	case -10: // ntext
 		return "TEXT"
 	case -7: // BIT
@@ -87,6 +91,7 @@ func (c *Column) PostgresType() string {
 		return fmt.Sprintf("CHAR(%v)", c.col.PRECISION)
 	case 6: // float
 		return "FLOAT"
+
 	default:
 		log.Fatalf("Dont know how to translate %d (%s)", c.col.DATA_TYPE, c.col.TYPE_NAME)
 	}
