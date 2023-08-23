@@ -9,6 +9,7 @@ import (
 	flag "github.com/spf13/pflag"
 
 	"database/sql"
+
 	_ "github.com/denisenkom/go-mssqldb"
 	_ "github.com/lib/pq"
 )
@@ -73,7 +74,7 @@ func main() {
 				}
 			}
 
-			log.Println("Createing ", tt.NewName)
+			log.Println("Creating ", tt.NewName)
 			if _, err := psqlDB.Exec(tt.CreateSql()); err != nil {
 				log.Fatal(err)
 			}

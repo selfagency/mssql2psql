@@ -75,18 +75,18 @@ func (c *Column) PostgresType() string {
 		return fmt.Sprintf("VARCHAR(%v)", c.col.PRECISION)
 	case -7: // BIT
 		return "BOOL"
-  case -2: // timestamp
-    return "TIMESTAMP(0)"
+	case -2: // timestamp
+		return "TIMESTAMP(0)"
 	case -1: // smalldatetime
 		return "TEXT"
 	case 1: // char
 		return fmt.Sprintf("CHAR(%v)", c.col.PRECISION)
-  case 3: // money
-    return "DECIMAL"
+	case 3: // money
+		return "DECIMAL"
 	case 4: //int
 		return "INT"
-  case 5: // smallint
-    return "SMALLINT"
+	case 5: // smallint
+		return "SMALLINT"
 	case 6: // float
 		return "FLOAT"
 	case 11: // smalldatetime
