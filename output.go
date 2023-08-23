@@ -69,29 +69,30 @@ func (c *Column) CreateSql() string {
 func (c *Column) PostgresType() string {
 	out := ""
 	switch c.col.DATA_TYPE {
+	case -10: // ntext
+		return "TEXT"
+	case -9: // smalldatetime
+		return fmt.Sprintf("VARCHAR(%v)", c.col.PRECISION)
+	case -7: // BIT
+		return "BOOL"
+  case -2: // timestamp
+    return "TIMESTAMP(0)"
+	case -1: // smalldatetime
+		return "TEXT"
+	case 1: // char
+		return fmt.Sprintf("CHAR(%v)", c.col.PRECISION)
   case 3: // money
     return "DECIMAL"
 	case 4: //int
 		return "INT"
   case 5: // smallint
     return "SMALLINT"
-	case -10: // ntext
-		return "TEXT"
-	case -7: // BIT
-		return "BOOL"
-	case 11: // smalldatetime
-		return "TIMESTAMP(0)"
-	case -1: // smalldatetime
-		return "TEXT"
-	case -9: // smalldatetime
-		return fmt.Sprintf("VARCHAR(%v)", c.col.PRECISION)
-	case 12: // varchar
-		return fmt.Sprintf("VARCHAR(%v)", c.col.PRECISION)
-	case 1: // char
-		return fmt.Sprintf("CHAR(%v)", c.col.PRECISION)
 	case 6: // float
 		return "FLOAT"
-
+	case 11: // smalldatetime
+		return "TIMESTAMP(0)"
+	case 12: // varchar
+		return fmt.Sprintf("VARCHAR(%v)", c.col.PRECISION)
 	default:
 		log.Fatalf("Dont know how to translate %d (%s)", c.col.DATA_TYPE, c.col.TYPE_NAME)
 	}
